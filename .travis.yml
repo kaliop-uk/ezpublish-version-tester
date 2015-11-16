@@ -1,0 +1,73 @@
+language: php
+
+# Will be used later, along with behat tests
+#sudo: required
+
+matrix:
+  include:
+    - php: 5.3
+      env: EZ_PACKAGES='ezsystems/ezpublish-community:~2012.9.0' EZ_VERSION=ezpublish-community
+    - php: 5.3
+      env: EZ_PACKAGES='ezsystems/ezpublish-community:~2012.11.0' EZ_VERSION=ezpublish-community
+    - php: 5.3
+      env: EZ_PACKAGES='ezsystems/ezpublish-community:~2012.12.0' EZ_VERSION=ezpublish-community
+    - php: 5.3
+      env: EZ_PACKAGES='ezsystems/ezpublish-community:~2013.1.0' EZ_VERSION=ezpublish-community
+    - php: 5.3
+      env: EZ_PACKAGES='ezsystems/ezpublish-community:~2013.4.0' EZ_VERSION=ezpublish-community
+    - php: 5.3
+      env: EZ_PACKAGES='ezsystems/ezpublish-community:~2013.5.0' EZ_VERSION=ezpublish-community
+    - php: 5.3
+      env: EZ_PACKAGES='ezsystems/ezpublish-community:~2013.6.0' EZ_VERSION=ezpublish-community
+    - php: 5.3
+      env: EZ_PACKAGES='ezsystems/ezpublish-community:~2013.7.0' EZ_VERSION=ezpublish-community
+    - php: 5.3
+      env: EZ_PACKAGES='ezsystems/ezpublish-community:~2013.9.0' EZ_VERSION=ezpublish-community
+    - php: 5.3
+      env: EZ_PACKAGES='ezsystems/ezpublish-community:~2013.11.0' EZ_VERSION=ezpublish-community
+    - php: 5.3
+      env: EZ_PACKAGES='ezsystems/ezpublish-community:~2014.1.0' EZ_VERSION=ezpublish-community
+    - php: 5.3
+      env: EZ_PACKAGES='ezsystems/ezpublish-community:~2014.3.0' EZ_VERSION=ezpublish-community
+    - php: 5.3
+      env: EZ_PACKAGES='ezsystems/ezpublish-community:~2014.5.0' EZ_VERSION=ezpublish-community
+    - php: 5.3
+      env: EZ_PACKAGES='ezsystems/ezpublish-community:~2014.7.0' EZ_VERSION=ezpublish-community
+    - php: 5.3
+      env: EZ_PACKAGES='ezsystems/ezpublish-community:~2014.11.0' EZ_VERSION=ezpublish-community
+    - php: 5.4
+      env: EZ_PACKAGES='ezsystems/ezplatform:~1.0.0-beta7 ezsystems/behatbundle:~6.0' EZ_VERSION=ezplatform
+    #- php:7.0
+    #  env: EZ_PACKAGES='ezsystems/ezplatform:~0.11?' EZ_VERSION=ezplatform
+
+before_install:
+  # Will be used later, along with behat tests
+  #- sudo apt-get update
+  #- sudo apt-get install -q -y --force-yes apache2 libapache2-mod-fastcgi
+  #- mysql -uroot -e "CREATE DATABASE IF NOT EXISTS behattestdb; GRANT ALL ON behattestdb.* TO ezp@localhost IDENTIFIED BY 'ezp';"
+
+install:
+  # Latest version of composer breaks downloading eZ, so we can not run self-update. See https://github.com/composer/composer/issues/4582
+  #- composer self-update
+
+  # Increase php memory limit (need to do this now or we risk composer failing)
+  - phpenv config-add WrapperBundle/Tests/travis/zzz_php.ini
+
+  # Disable xdebug for speed
+  # NB: this should NOT be done for hhvm and php 7.0.
+  - if [ "$TRAVIS_PHP_VERSION" != "hhvm" -a "$TRAVIS_PHP_VERSION" != "7.0"]; then phpenv config-rm xdebug.ini; fi
+
+script:
+  - composer require ${EZ_PACKAGES} && composer update
+
+after_failure:
+  # Display as much info as we can to help developers
+  - if [ "$TRAVIS_PHP_VERSION" != "hhvm" ]; then php -i; fi
+
+# reduce depth (history) of git checkout
+git:
+    depth: 30
+
+cache:
+    directories:
+        - $COMPOSER_CACHE_DIR
