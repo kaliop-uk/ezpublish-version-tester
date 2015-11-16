@@ -1,10 +1,11 @@
 language: php
 
-# Will be used later, along with behat tests
-#sudo: required
+# Required for phpenv command
+sudo: required
 
 matrix:
   include:
+    # minimum php version supported
     - php: 5.3
       env: EZ_PACKAGES='ezsystems/ezpublish-community:~2012.9.0' EZ_VERSION=ezpublish-community
     - php: 5.3
@@ -37,6 +38,8 @@ matrix:
       env: EZ_PACKAGES='ezsystems/ezpublish-community:~2014.11.0' EZ_VERSION=ezpublish-community
     - php: 5.4
       env: EZ_PACKAGES='ezsystems/ezplatform:~1.0.0-beta7 ezsystems/behatbundle:~6.0' EZ_VERSION=ezplatform
+
+    # maximum php version supported: to do...
     #- php:7.0
     #  env: EZ_PACKAGES='ezsystems/ezplatform:~0.11?' EZ_VERSION=ezplatform
 
