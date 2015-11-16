@@ -23,25 +23,25 @@ matrix:
       env: EZ_PACKAGES='ezsystems/ezpublish-community:~2013.5.0' EZ_VERSION=ezpublish-community
     - php: 5.3
       env: EZ_PACKAGES='ezsystems/ezpublish-community:~2013.6.0' EZ_VERSION=ezpublish-community
+
+    # Currently broken
     - php: 5.3
       env: EZ_PACKAGES='ezsystems/ezpublish-community:~2013.7.0' EZ_VERSION=ezpublish-community
-
     - php: 5.3
       env: EZ_PACKAGES='ezsystems/ezpublish-community:~2013.9.0' EZ_VERSION=ezpublish-community
-
     - php: 5.3
       env: EZ_PACKAGES='ezsystems/ezpublish-community:~2013.11.0' EZ_VERSION=ezpublish-community
     - php: 5.3
       env: EZ_PACKAGES='ezsystems/ezpublish-community:~2014.1.0' EZ_VERSION=ezpublish-community
-
     - php: 5.3
       env: EZ_PACKAGES='ezsystems/ezpublish-community:~2014.3.0' EZ_VERSION=ezpublish-community
     - php: 5.3
       env: EZ_PACKAGES='ezsystems/ezpublish-community:~2014.5.0' EZ_VERSION=ezpublish-community
 
-    - php: 5.3
+    # The following 2 release statet that minimum php version is 5.3, but their kernels really require 5.4
+    - php: 5.4
       env: EZ_PACKAGES='ezsystems/ezpublish-community:~2014.7.0' EZ_VERSION=ezpublish-community
-    - php: 5.3
+    - php: 5.4
       env: EZ_PACKAGES='ezsystems/ezpublish-community:~2014.11.0' EZ_VERSION=ezpublish-community
 
     - php: 5.4
