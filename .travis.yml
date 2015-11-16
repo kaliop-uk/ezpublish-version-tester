@@ -54,7 +54,7 @@ install:
   #- composer self-update
 
   # Increase php memory limit (need to do this now or we risk composer failing)
-  - phpenv config-add WrapperBundle/Tests/travis/zzz_php.ini
+  - phpenv config-add zzz_php.ini
 
   # Disable xdebug for speed
   # NB: this should NOT be done for hhvm and php 7.0.
